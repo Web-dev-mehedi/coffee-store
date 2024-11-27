@@ -9,20 +9,21 @@ import {
 import AddCoffee from './components/AddCoffee.jsx';
 import UpdateCoffee from './components/UpdateCoffee.jsx';
 
-
-
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main/>,
+    loader : ()=> fetch('http://localhost:5000/addCoffee')
   },
   {
     path:"/addCoffee",
-   element:<AddCoffee/>,
+   element:<AddCoffee/>
+   
   },
   {
-    path:"/updateCoffee",
+    path:"/updateCoffee/:id",
     element:<UpdateCoffee/>,
+    loader : ({params})=> fetch(`http://localhost:5000/addCoffee/${params.id}`)
   }
 
 ]);

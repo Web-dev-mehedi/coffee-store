@@ -1,7 +1,20 @@
-
+import Swal from 'sweetalert2'
 
 
 const AddCoffee = () => {
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-center',
+    iconColor: 'green',
+    customClass: {
+      popup: 'colored-toast',
+    },
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+  })
+  
 
 const handleAddCoffee =(e)=>{
   e.preventDefault();
@@ -28,7 +41,11 @@ const handleAddCoffee =(e)=>{
    .then(res=> res.json())
    .then( data => {
     console.log(data)
-    alert("data added to database")
+    Toast.fire({
+      icon: 'success',
+      title: "data added to database successfully",
+    }
+    )
    })
 }
 
