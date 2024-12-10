@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Swal from 'sweetalert2'
 
 
@@ -29,24 +30,35 @@ const handleAddCoffee =(e)=>{
    const photoUrl = form.photoUrl.value;
 
    const coffeeData = { name , quantity , chef, supplier, taste, category, details, photoUrl}
-   console.log(coffeeData)
-
-   fetch("http://localhost:5000/addCoffee",{
-       method: 'POST',
-       headers: {
-        'content-type' : 'application/json'
-       },
-       body: JSON.stringify(coffeeData)
-   })
-   .then(res=> res.json())
-   .then( data => {
-    console.log(data)
+  // data post to database using axios
+  axios.post('http://localhost:5000/addCoffee', coffeeData)
+  .then( data => {
+    console.log(data.data);
     Toast.fire({
-      icon: 'success',
-      title: "data added to database successfully",
-    }
-    )
-   })
+          icon: 'success',
+          title: "data added to database successfully",
+        }
+        )
+  })
+
+
+  //  using fetch
+  //  fetch("http://localhost:5000/addCoffee",{
+  //      method: 'POST',
+  //      headers: {
+  //       'content-type' : 'application/json'
+  //      },
+  //      body: JSON.stringify(coffeeData)
+  //  })
+  //  .then(res=> res.json())
+  //  .then( data => {
+  //   console.log(data)
+  //   Toast.fire({
+  //     icon: 'success',
+  //     title: "data added to database successfully",
+  //   }
+  //   )
+  //  })
 }
 
 

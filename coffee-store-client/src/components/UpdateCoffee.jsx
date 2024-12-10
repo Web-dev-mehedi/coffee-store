@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -16,7 +17,7 @@ const UpdateCoffee = () => {
     photoUrl,
     _id,
   } = coffee || {};
-  console.log(coffee);
+
 
   const handleUpdateCoffee = (e) => {
  
@@ -53,24 +54,40 @@ const UpdateCoffee = () => {
         confirmButtonText: "Yes, Update it!",
       }).then(result=>{
           if(result.isConfirmed){
-            fetch(`http://localhost:5000/addCoffee/${_id}`, {
-                method: "PUT",
-                headers: {
-                  "content-type": "application/json",
-                },
-                body: JSON.stringify(updateCoffeeData),
-              })
-              .then((res) => res.json())
-              .then((data) => {
-                console.log(data);
-                if (data.modifiedCount > 0) {
-                  Swal.fire({
-                    title: "Updated!",
-                    text: "Your coFfee has been updated.",
-                    icon: "success",
-                  });
-                }
+              // using axios
+              axios.put(`http://localhost:5000/addCoffee/${_id}`, updateCoffeeData)
+              .then(data => {
+                    console.log(data.data)
+                   
+                    if (data.data.modifiedCount > 0) {
+                         Swal.fire({
+                        title: "Updated!",
+                               text: "Your coFfee has been updated.",
+                               icon: "success",
+                             });
+                           }
+                        
               });
+
+            //using fetch
+            // fetch(`http://localhost:5000/addCoffee/${_id}`, {
+            //     method: "PUT",
+            //     headers: {
+            //       "content-type": "application/json",
+            //     },
+            //     body: JSON.stringify(updateCoffeeData),
+            //   })
+            //   .then((res) => res.json())
+            //   .then((data) => {
+            //     console.log(data);
+            //     if (data.modifiedCount > 0) {
+            //       Swal.fire({
+            //         title: "Updated!",
+            //         text: "Your coFfee has been updated.",
+            //         icon: "success",
+            //       });
+            //     }
+            //   });
           }
       })
    
